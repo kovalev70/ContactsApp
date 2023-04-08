@@ -125,6 +125,7 @@
             this.LicenseTextBox.Size = new System.Drawing.Size(495, 156);
             this.LicenseTextBox.TabIndex = 9;
             this.LicenseTextBox.Text = resources.GetString("LicenseTextBox.Text");
+            this.LicenseTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LicenseTextBox_KeyPress);
             // 
             // ButtonPanel
             // 

@@ -32,5 +32,10 @@ namespace ContactsApp.View
         {
             this.Close();
         }
+
+        private void LicenseTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
 }
