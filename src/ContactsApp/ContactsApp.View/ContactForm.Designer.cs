@@ -32,7 +32,7 @@
             this.ButtonPanel = new System.Windows.Forms.Panel();
             this.CancelButton = new System.Windows.Forms.Button();
             this.OkButton = new System.Windows.Forms.Button();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.DateofBirthTimePicker = new System.Windows.Forms.DateTimePicker();
             this.PhotoButton = new System.Windows.Forms.PictureBox();
             this.BirthdayPanel = new System.Windows.Forms.Panel();
             this.BirthdayPanelCloseButton = new System.Windows.Forms.Button();
@@ -60,7 +60,7 @@
             // RightPanel
             // 
             this.RightPanel.Controls.Add(this.ButtonPanel);
-            this.RightPanel.Controls.Add(this.dateTimePicker1);
+            this.RightPanel.Controls.Add(this.DateofBirthTimePicker);
             this.RightPanel.Controls.Add(this.PhotoButton);
             this.RightPanel.Controls.Add(this.BirthdayPanel);
             this.RightPanel.Controls.Add(this.VKTextBox);
@@ -112,13 +112,13 @@
             this.OkButton.UseVisualStyleBackColor = true;
             this.OkButton.Click += new System.EventHandler(this.OkButton_Click);
             // 
-            // dateTimePicker1
+            // DateofBirthTimePicker
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(118, 194);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(175, 23);
-            this.dateTimePicker1.TabIndex = 13;
-            this.dateTimePicker1.Value = new System.DateTime(1994, 7, 6, 0, 0, 0, 0);
+            this.DateofBirthTimePicker.Location = new System.Drawing.Point(118, 194);
+            this.DateofBirthTimePicker.Name = "DateofBirthTimePicker";
+            this.DateofBirthTimePicker.Size = new System.Drawing.Size(175, 23);
+            this.DateofBirthTimePicker.TabIndex = 13;
+            this.DateofBirthTimePicker.Value = new System.DateTime(1994, 7, 6, 0, 0, 0, 0);
             // 
             // PhotoButton
             // 
@@ -328,7 +328,7 @@
         private Label FullNameLabel;
         private PictureBox PhotoPictureBox;
         private PictureBox PhotoButton;
-        private DateTimePicker dateTimePicker1;
+        private DateTimePicker DateofBirthTimePicker;
         private Panel ButtonPanel;
         private Button CancelButton;
         private Button OkButton;
