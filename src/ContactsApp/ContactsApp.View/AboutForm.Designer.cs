@@ -123,7 +123,7 @@
             this.LicenseTextBox.Name = "LicenseTextBox";
             this.LicenseTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.LicenseTextBox.Size = new System.Drawing.Size(495, 156);
-            this.LicenseTextBox.TabIndex = 9;
+            this.LicenseTextBox.TabIndex = 50;
             this.LicenseTextBox.Text = resources.GetString("LicenseTextBox.Text");
             this.LicenseTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LicenseTextBox_KeyPress);
             // 

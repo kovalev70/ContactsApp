@@ -217,8 +217,7 @@
             // 
             // BirthdayPanel
             // 
-            this.BirthdayPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BirthdayPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BirthdayPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.BirthdayPanel.Controls.Add(this.BirthdayPanelCloseButton);
             this.BirthdayPanel.Controls.Add(this.BirthdaySurnamesLabel);
@@ -231,6 +230,7 @@
             // 
             // BirthdayPanelCloseButton
             // 
+            this.BirthdayPanelCloseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BirthdayPanelCloseButton.Image = global::ContactsApp.View.Properties.Resources.close_32x32;
             this.BirthdayPanelCloseButton.Location = new System.Drawing.Point(503, 3);
             this.BirthdayPanelCloseButton.Margin = new System.Windows.Forms.Padding(0);
