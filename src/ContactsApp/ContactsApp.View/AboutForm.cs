@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace ContactsApp.View
 {
@@ -15,6 +16,21 @@ namespace ContactsApp.View
         public AboutForm()
         {
             InitializeComponent();
+        }
+
+        private void GithubAuthorLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo { FileName = @"http://github.com/kovalev70", UseShellExecute = true });
+        }
+
+        private void IconLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo { FileName = @"http://icons8.com", UseShellExecute = true });
+        }
+
+        private void OkButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

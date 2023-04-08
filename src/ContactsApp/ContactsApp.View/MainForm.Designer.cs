@@ -387,9 +387,11 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.MainTableLayoutPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainForm";
             this.Text = "ContactsApp";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.MainTableLayoutPanel.ResumeLayout(false);
             this.LeftPanel.ResumeLayout(false);
             this.LeftPanel.PerformLayout();

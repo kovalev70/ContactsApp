@@ -78,5 +78,14 @@ namespace ContactsApp.View
         {
             BirthdayPanel.Visible = false;
         }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+            {
+                var form = new AboutForm();
+                form.ShowDialog();
+            }
+        }
     }
 }
