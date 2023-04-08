@@ -109,7 +109,7 @@
             this.ButtonsTableLayoutPanel.Name = "ButtonsTableLayoutPanel";
             this.ButtonsTableLayoutPanel.RowCount = 1;
             this.ButtonsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.ButtonsTableLayoutPanel.Size = new System.Drawing.Size(238, 35);
+            this.ButtonsTableLayoutPanel.Size = new System.Drawing.Size(238, 41);
             this.ButtonsTableLayoutPanel.TabIndex = 3;
             // 
             // RemoveContactButton
@@ -119,7 +119,7 @@
             this.RemoveContactButton.Location = new System.Drawing.Point(158, 0);
             this.RemoveContactButton.Margin = new System.Windows.Forms.Padding(0);
             this.RemoveContactButton.Name = "RemoveContactButton";
-            this.RemoveContactButton.Size = new System.Drawing.Size(80, 35);
+            this.RemoveContactButton.Size = new System.Drawing.Size(80, 41);
             this.RemoveContactButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.RemoveContactButton.TabIndex = 6;
             this.RemoveContactButton.TabStop = false;
@@ -133,7 +133,7 @@
             this.EditContactButton.Location = new System.Drawing.Point(79, 0);
             this.EditContactButton.Margin = new System.Windows.Forms.Padding(0);
             this.EditContactButton.Name = "EditContactButton";
-            this.EditContactButton.Size = new System.Drawing.Size(79, 35);
+            this.EditContactButton.Size = new System.Drawing.Size(79, 41);
             this.EditContactButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.EditContactButton.TabIndex = 5;
             this.EditContactButton.TabStop = false;
@@ -147,7 +147,7 @@
             this.AddContactButton.Location = new System.Drawing.Point(0, 0);
             this.AddContactButton.Margin = new System.Windows.Forms.Padding(0);
             this.AddContactButton.Name = "AddContactButton";
-            this.AddContactButton.Size = new System.Drawing.Size(79, 35);
+            this.AddContactButton.Size = new System.Drawing.Size(79, 41);
             this.AddContactButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.AddContactButton.TabIndex = 4;
             this.AddContactButton.TabStop = false;
