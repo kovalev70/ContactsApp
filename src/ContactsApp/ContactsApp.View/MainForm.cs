@@ -22,7 +22,7 @@ namespace ContactsApp.View
         private void AddContactButton_MouseLeave(object sender, EventArgs e)
         {
             AddContactButton.Image = Properties.Resources.add_contact_32x32_gray;
-            AddContactButton.BackColor =Color.White;
+            AddContactButton.BackColor = Color.White;
         }
 
         private void EditContactButton_MouseEnter(object sender, EventArgs e)
