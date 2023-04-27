@@ -1,16 +1,69 @@
+using ContactsApp.Model;
+
 namespace ContactsApp.View
 {
     public partial class MainForm : Form
     {
+        private Project _project = new Project();
         public MainForm()
         {
             InitializeComponent();
         }
+        private void UpdateListBox()
+        {
+            ContactsListBox.Items.Clear();
+            foreach (var contact in _project.GetAllContacts())
+            {
+                ContactsListBox.Items.Add(contact.FullName);
+            }
+        }
+
+        private void AddContact()
+        {
+            var fullNameList = new List<string>()  { "Ivan Ivanov", "Petr Petrovich", "Efim Efimov", "Denis Denisov" };
+            var emailList = new List<string>() { "IvanIvanov@mail.ru", "PetrPetrovich@mail.ru", "EfimEfimov@mail.ru", "DenisDenisov@mail.ru" };
+            var phoneNumberList = new List<string>() { "+79966361590", "+79966221590", "+79966361880", "+79911361590" };
+            var vkIdList = new List<string>() { "+ivan2222", "billy111", "bestMan123", "Nagibator666" };
+            DateTime start = new DateTime(1995, 1, 1);
+            int range = (DateTime.Today - start).Days;
+            Random rand = new Random();
+            var randFullName = fullNameList[rand.Next(fullNameList.Count)];
+            var randEmail = emailList[rand.Next(emailList.Count)];
+            var randPhoneNumber = phoneNumberList[rand.Next(phoneNumberList.Count)];
+            var randVkId = vkIdList[rand.Next(vkIdList.Count)];
+            var randBirthDate = start.AddDays(rand.Next(range));
+            Contact newContact = new Contact(randFullName, randEmail, randPhoneNumber, randBirthDate, randVkId);
+            _project.AddContact(newContact);
+        }
+        private void RemoveContact(int index)
+        {
+            _project.RemoveContact(_project.GetAllContacts()[index]);
+        }
+
+        private void UpdateSelectedContact(int index)
+        {
+            FullNameTextBox.Text = _project.GetAllContacts()[index].FullName;
+            EmailTextBox.Text = _project.GetAllContacts()[index].Email;
+            PhoneNumberTextBox.Text = _project.GetAllContacts()[index].PhoneNumber;
+            DateOfBirthTextBox.Text = _project.GetAllContacts()[index].BirthDate.Date.ToString("dd/MM/yyyy");
+            VKTextBox.Text = _project.GetAllContacts()[index].VkId;
+        }
 
         private void AddContactButton_Click(object sender, EventArgs e)
         {
-            var form = new ContactForm();
-            form.ShowDialog();
+            AddContact();
+            UpdateListBox();
+            ///var form = new ContactForm();
+            ///form.ShowDialog();
+        }
+
+        private void ClearSelectedContact()
+        {
+            FullNameTextBox.Text = string.Empty;
+            EmailTextBox.Text = string.Empty;
+            PhoneNumberTextBox.Text = string.Empty;
+            DateOfBirthTextBox.Text = string.Empty;
+            VKTextBox.Text = string.Empty;
         }
 
         private void AddContactButton_MouseEnter(object sender, EventArgs e)
@@ -86,6 +139,40 @@ namespace ContactsApp.View
                 var form = new AboutForm();
                 form.ShowDialog();
             }
+        }
+
+        private void RemoveContactButton_Click(object sender, EventArgs e)
+        {
+            if (ContactsListBox.SelectedIndex == -1) return;
+            else 
+            {
+                DialogResult result = MessageBox.Show(
+                    "Do you really want to remove " + _project.GetAllContacts()[ContactsListBox.SelectedIndex].FullName + "?",
+                    "Message",
+                    MessageBoxButtons.OKCancel);
+                if (result == DialogResult.OK)
+                {
+                    RemoveContact(ContactsListBox.SelectedIndex);
+                    UpdateListBox();
+                }
+            }
+        }
+
+        private void ContactsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ContactsListBox.SelectedIndex == -1)
+            {
+                ClearSelectedContact();
+            }
+            else UpdateSelectedContact(ContactsListBox.SelectedIndex);
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Close the ContactsApp?", "Message", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                e.Cancel = true;
+            else
+                e.Cancel = false;
         }
     }
 }
