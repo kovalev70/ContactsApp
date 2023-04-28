@@ -1,14 +1,23 @@
-using ContactsApp.Model;
-
 namespace ContactsApp.View
 {
+    using ContactsApp.Model;
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// Экземпляр класса Project.
+        /// </summary>
         private Project _project = new Project();
+        /// <summary>
+        /// Конструктор формы.
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
         }
+        
+        /// <summary>
+        /// Обновляет ListBox.
+        /// </summary>
         private void UpdateListBox()
         {
             ContactsListBox.Items.Clear();
@@ -18,6 +27,9 @@ namespace ContactsApp.View
             }
         }
 
+        /// <summary>
+        /// Добавляет новый Contact со случайными данными.
+        /// </summary>
         private void AddContact()
         {
             var fullNameList = new List<string>()  { "Ivan Ivanov", "Petr Petrovich", "Efim Efimov", "Denis Denisov" };
@@ -35,11 +47,20 @@ namespace ContactsApp.View
             Contact newContact = new Contact(randFullName, randEmail, randPhoneNumber, randBirthDate, randVkId);
             _project.AddContact(newContact);
         }
+
+        /// <summary>
+        /// Удаление контакта
+        /// </summary>
+        /// <param name="index"></param>
         private void RemoveContact(int index)
         {
             _project.RemoveContact(_project.GetAllContacts()[index]);
         }
 
+        /// <summary>
+        /// Обновление выбранного контакта.
+        /// </summary>
+        /// <param name="index"></param>
         private void UpdateSelectedContact(int index)
         {
             FullNameTextBox.Text = _project.GetAllContacts()[index].FullName;
@@ -49,14 +70,22 @@ namespace ContactsApp.View
             VKTextBox.Text = _project.GetAllContacts()[index].VkId;
         }
 
+        /// <summary>
+        /// Вызов формы ContactForm.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddContactButton_Click(object sender, EventArgs e)
         {
-            AddContact();
-            UpdateListBox();
-            ///var form = new ContactForm();
-            ///form.ShowDialog();
+            //AddContact();
+            //UpdateListBox();
+            var form = new ContactForm();
+            form.ShowDialog();
         }
 
+        /// <summary>
+        /// Очищает выбранный контакт.
+        /// </summary>
         private void ClearSelectedContact()
         {
             FullNameTextBox.Text = string.Empty;
@@ -66,72 +95,137 @@ namespace ContactsApp.View
             VKTextBox.Text = string.Empty;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddContactButton_MouseEnter(object sender, EventArgs e)
         {
             AddContactButton.Image = Properties.Resources.add_contact_32x32;
             AddContactButton.BackColor = ColorTranslator.FromHtml("#F5F5F5");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddContactButton_MouseLeave(object sender, EventArgs e)
         {
             AddContactButton.Image = Properties.Resources.add_contact_32x32_gray;
             AddContactButton.BackColor = Color.White;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EditContactButton_MouseEnter(object sender, EventArgs e)
         {
             EditContactButton.Image = Properties.Resources.edit_contact_32x32;
             EditContactButton.BackColor = ColorTranslator.FromHtml("#F5F5F5");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EditContactButton_MouseLeave(object sender, EventArgs e)
         {
             EditContactButton.Image = Properties.Resources.edit_contact_32x32_gray;
             EditContactButton.BackColor = Color.White;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RemoveContactButton_MouseEnter(object sender, EventArgs e)
         {
             RemoveContactButton.Image = Properties.Resources.remove_contact_32x32;
             RemoveContactButton.BackColor = ColorTranslator.FromHtml("#FAF5F5");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RemoveContactButton_MouseLeave(object sender, EventArgs e)
         {
             RemoveContactButton.Image = Properties.Resources.remove_contact_32x32_gray;
             RemoveContactButton.BackColor = Color.White;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FullNameTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EmailTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PhoneNumberTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DateOfBirthTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void VKTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BirthdayPanelCloseButton_Click(object sender, EventArgs e)
         {
             BirthdayPanel.Visible = false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F1)
@@ -141,6 +235,11 @@ namespace ContactsApp.View
             }
         }
 
+        /// <summary>
+        /// Обработка нажатия кнопки RemoveContactButton.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RemoveContactButton_Click(object sender, EventArgs e)
         {
             if (ContactsListBox.SelectedIndex == -1) return;
@@ -158,6 +257,11 @@ namespace ContactsApp.View
             }
         }
 
+        /// <summary>
+        /// Обработка вывода данных.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ContactsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ContactsListBox.SelectedIndex == -1)
@@ -167,12 +271,14 @@ namespace ContactsApp.View
             else UpdateSelectedContact(ContactsListBox.SelectedIndex);
         }
 
+        /// <summary>
+        /// Вызов MessageBox при закрытии формы.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show("Close the ContactsApp?", "Message", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
-                e.Cancel = true;
-            else
-                e.Cancel = false;
+            e.Cancel = MessageBox.Show("Close the ContactsApp?", "Message", MessageBoxButtons.YesNo) == DialogResult.No;
         }
     }
 }

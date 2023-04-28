@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-
-namespace ContactsApp.Model
+﻿namespace ContactsApp.Model
 {
+    using System.Globalization;
+    using System.Text.RegularExpressions;
     /// <summary>
     /// Описывает контакт.
     /// </summary>
@@ -17,18 +11,22 @@ namespace ContactsApp.Model
         /// Полное имя контакта.
         /// </summary>
         private string _fullName;
+
         /// <summary>
         /// Электронная почта контакта.
         /// </summary>
         private string _email;
+
         /// <summary>
         /// Номер телефона контакта.
         /// </summary>
         private string _phoneNumber;
+
         /// <summary>
         /// День рождения контакта.
         /// </summary>
         private DateTime _birthDate;
+
         /// <summary>
         /// ID Вконтакте контакта.
         /// </summary>
@@ -50,6 +48,7 @@ namespace ContactsApp.Model
             BirthDate = birthDate;
             VkId = vkId;
         }
+
         /// <summary>
         /// Возвращает или задает полное имя контакта.
         /// </summary>
@@ -65,6 +64,7 @@ namespace ContactsApp.Model
                 _fullName = ToUpperFirst(value);
             }
         }
+
         /// <summary>
         /// Возвращает или задает электронную почту контакта.
         /// </summary>
@@ -80,6 +80,7 @@ namespace ContactsApp.Model
                 _email = value;
             }
         }
+
         /// <summary>
         /// Возвращает или задает номер телефона контакта.
         /// </summary>
@@ -90,11 +91,12 @@ namespace ContactsApp.Model
             {
                 if (!IsPhoneNumberValid(value))
                 {
-                    throw new ArgumentException("Invalid phone number.");
+                    throw new ArgumentException("The phone number should start with +7 or 8 and also have only digits.");
                 }
                 _phoneNumber = value;
             }
         }
+
         /// <summary>
         /// Возвращает или задает день рождения контакта.
         /// </summary>
@@ -105,11 +107,12 @@ namespace ContactsApp.Model
             {
                 if (value > DateTime.Now || value.Year < 1900)
                 {
-                    throw new ArgumentException("Invalid birth date.");
+                    throw new ArgumentException("The date of birth cannot be in the future and earlier than 1900.");
                 }
                 _birthDate = value;
             }
         }
+
         /// <summary>
         /// Возвращает или задает ID Вконтакте контакта.
         /// </summary>
@@ -125,6 +128,7 @@ namespace ContactsApp.Model
                 _vkId = value;
             }
         }
+
         /// <summary>
         /// Возвращает строку, где первый символ каждого слова пишется с заглавной буквы.
         /// </summary>

@@ -114,11 +114,14 @@
             // 
             // DateofBirthTimePicker
             // 
+            this.DateofBirthTimePicker.CalendarMonthBackground = System.Drawing.Color.White;
             this.DateofBirthTimePicker.Location = new System.Drawing.Point(118, 194);
+            this.DateofBirthTimePicker.MaxDate = new System.DateTime(2029, 12, 25, 23, 59, 59, 0);
             this.DateofBirthTimePicker.Name = "DateofBirthTimePicker";
             this.DateofBirthTimePicker.Size = new System.Drawing.Size(175, 23);
             this.DateofBirthTimePicker.TabIndex = 13;
-            this.DateofBirthTimePicker.Value = new System.DateTime(1994, 7, 6, 0, 0, 0, 0);
+            this.DateofBirthTimePicker.Value = new System.DateTime(2023, 4, 28, 0, 0, 0, 0);
+            this.DateofBirthTimePicker.ValueChanged += new System.EventHandler(this.DateofBirthTimePicker_ValueChanged);
             // 
             // PhotoButton
             // 
@@ -197,6 +200,7 @@
             this.VKTextBox.Name = "VKTextBox";
             this.VKTextBox.Size = new System.Drawing.Size(175, 23);
             this.VKTextBox.TabIndex = 10;
+            this.VKTextBox.TextChanged += new System.EventHandler(this.VKTextBox_TextChanged);
             // 
             // PhoneNumberTextBox
             // 
@@ -204,7 +208,7 @@
             this.PhoneNumberTextBox.Name = "PhoneNumberTextBox";
             this.PhoneNumberTextBox.Size = new System.Drawing.Size(175, 23);
             this.PhoneNumberTextBox.TabIndex = 8;
-            this.PhoneNumberTextBox.Text = "+7 (999) 234 21-98";
+            this.PhoneNumberTextBox.TextChanged += new System.EventHandler(this.PhoneNumberTextBox_TextChanged);
             // 
             // EmailTextBox
             // 
@@ -214,7 +218,7 @@
             this.EmailTextBox.Name = "EmailTextBox";
             this.EmailTextBox.Size = new System.Drawing.Size(394, 23);
             this.EmailTextBox.TabIndex = 7;
-            this.EmailTextBox.Text = "medvedeva@gmail.com";
+            this.EmailTextBox.TextChanged += new System.EventHandler(this.EmailTextBox_TextChanged);
             // 
             // FullNameTextBox
             // 
@@ -224,7 +228,7 @@
             this.FullNameTextBox.Name = "FullNameTextBox";
             this.FullNameTextBox.Size = new System.Drawing.Size(394, 23);
             this.FullNameTextBox.TabIndex = 6;
-            this.FullNameTextBox.Text = "Медведева Полина ";
+            this.FullNameTextBox.TextChanged += new System.EventHandler(this.FullNameTextBox_TextChanged);
             // 
             // VKLable
             // 
