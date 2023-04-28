@@ -66,7 +66,12 @@
         {
             if (_fullNameError != "" || _emailError != "" || _phoneNumberError != "" || _dateOfBirthError != "" || _vkIdError !="")
             {
-                string errorMessage = _fullNameError + _emailError + _phoneNumberError + _dateOfBirthError + _vkIdError;
+                string errorMessage = "";
+                if (_fullNameError != "") errorMessage = errorMessage + "- " + _fullNameError + "\n";
+                if (_emailError != "") errorMessage = errorMessage + "- " + _emailError + "\n";
+                if (_phoneNumberError != "") errorMessage = errorMessage + "- " + _phoneNumberError + "\n";
+                if (_dateOfBirthError != "") errorMessage = errorMessage + "- " + _dateOfBirthError + "\n";
+                if (_vkIdError != "") errorMessage =errorMessage + "- " + _vkIdError + "\n";
                 MessageBox.Show(errorMessage);
                 return false;
             }
