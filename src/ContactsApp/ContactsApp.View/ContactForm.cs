@@ -59,7 +59,7 @@
         }
 
         /// <summary>
-        /// Проверяет правильность ввода данных.
+        /// Проверяет правильность ввода данных и выводит MessageBox.
         /// </summary>
         /// <returns></returns>
         private bool CheckFormOnErrors()
