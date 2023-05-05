@@ -7,14 +7,42 @@ namespace ContactsApp.View
         /// Экземпляр класса Project.
         /// </summary>
         private Project _project = new Project();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private List<ContactsData> _contactsData = new List<ContactsData>();
+
         /// <summary>
         /// Конструктор формы.
         /// </summary>
         public MainForm()
         {
             InitializeComponent();
+            FillListBoxByTestData();
+            UpdateListBox();
         }
-        
+
+        /// <summary>
+        /// Заполняет ListBox тестовыми контактами.
+        /// </summary>
+        /// <param name="dataCount"></param>
+        private void FillListBoxByTestData(int dataCount = 3)
+        {
+            for (int i = 0; i < dataCount; i++)
+            {
+                Contact testContact = TestData.AddContact();
+                var data = new ContactsData()
+                {
+                    Contact = testContact
+                };
+                _contactsData.Add(data);
+                _project.AddContact(testContact);
+                ContactsListBox.Items.Add(testContact);
+
+            }
+        }
+
         /// <summary>
         /// Обновляет ListBox.
         /// </summary>
@@ -25,27 +53,6 @@ namespace ContactsApp.View
             {
                 ContactsListBox.Items.Add(contact.FullName);
             }
-        }
-
-        /// <summary>
-        /// Добавляет новый Contact со случайными данными.
-        /// </summary>
-        private void AddContact()
-        {
-            var fullNameList = new List<string>()  { "Ivan Ivanov", "Petr Petrovich", "Efim Efimov", "Denis Denisov" };
-            var emailList = new List<string>() { "IvanIvanov@mail.ru", "PetrPetrovich@mail.ru", "EfimEfimov@mail.ru", "DenisDenisov@mail.ru" };
-            var phoneNumberList = new List<string>() { "+79966361590", "+79966221590", "+79966361880", "+79911361590" };
-            var vkIdList = new List<string>() { "+ivan2222", "billy111", "bestMan123", "Nagibator666" };
-            DateTime start = new DateTime(1995, 1, 1);
-            int range = (DateTime.Today - start).Days;
-            Random rand = new Random();
-            var randFullName = fullNameList[rand.Next(fullNameList.Count)];
-            var randEmail = emailList[rand.Next(emailList.Count)];
-            var randPhoneNumber = phoneNumberList[rand.Next(phoneNumberList.Count)];
-            var randVkId = vkIdList[rand.Next(vkIdList.Count)];
-            var randBirthDate = start.AddDays(rand.Next(range));
-            Contact newContact = new Contact(randFullName, randEmail, randPhoneNumber, randBirthDate, randVkId);
-            _project.AddContact(newContact);
         }
 
         /// <summary>
@@ -63,11 +70,12 @@ namespace ContactsApp.View
         /// <param name="index"></param>
         private void UpdateSelectedContact(int index)
         {
-            FullNameTextBox.Text = _project.GetAllContacts()[index].FullName;
-            EmailTextBox.Text = _project.GetAllContacts()[index].Email;
-            PhoneNumberTextBox.Text = _project.GetAllContacts()[index].PhoneNumber;
-            DateOfBirthTextBox.Text = _project.GetAllContacts()[index].BirthDate.Date.ToString("dd/MM/yyyy");
-            VKTextBox.Text = _project.GetAllContacts()[index].VkId;
+            Contact AllContacts = _project.GetAllContacts()[index];
+            FullNameTextBox.Text = AllContacts.FullName;
+            EmailTextBox.Text = AllContacts.Email;
+            PhoneNumberTextBox.Text = AllContacts.PhoneNumber;
+            DateOfBirthTextBox.Text = AllContacts.BirthDate.Date.ToString("yyyy/MM/dd");
+            VKTextBox.Text = AllContacts.VkId;
         }
 
         /// <summary>
@@ -77,10 +85,21 @@ namespace ContactsApp.View
         /// <param name="e"></param>
         private void AddContactButton_Click(object sender, EventArgs e)
         {
-            //AddContact();
-            //UpdateListBox();
             var form = new ContactForm();
             form.ShowDialog();
+            if (form.DialogResult == DialogResult.OK)
+            {
+                var updatedData = form.ContactsData;
+                _project.AddContact(updatedData.Contact);
+                _contactsData.Add(updatedData);
+                ContactsListBox.Items.Add(updatedData.Contact.FullName);
+                var selectedIndex = ContactsListBox.SelectedIndex;
+                FullNameTextBox.Text = updatedData.Contact.FullName;
+                PhoneNumberTextBox.Text = updatedData.Contact.PhoneNumber;
+                EmailTextBox.Text = updatedData.Contact.Email;
+                DateOfBirthTextBox.Text = updatedData.Contact.BirthDate.ToString("yyyy/MM/dd");
+                VKTextBox.Text = updatedData.Contact.VkId;
+            }
         }
 
         /// <summary>
@@ -96,7 +115,7 @@ namespace ContactsApp.View
         }
 
         /// <summary>
-        /// 
+        /// Обработка наведения мышки с клавиши.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -107,7 +126,7 @@ namespace ContactsApp.View
         }
 
         /// <summary>
-        /// 
+        /// Обработка убирания мышки с клавиши.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -118,7 +137,7 @@ namespace ContactsApp.View
         }
 
         /// <summary>
-        /// 
+        /// Обработка наведения мышки с клавиши.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -129,7 +148,7 @@ namespace ContactsApp.View
         }
 
         /// <summary>
-        /// 
+        /// Обработка убирания мышки с клавиши.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -140,7 +159,7 @@ namespace ContactsApp.View
         }
 
         /// <summary>
-        /// 
+        /// Обработка наведения мышки с клавиши.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -151,7 +170,7 @@ namespace ContactsApp.View
         }
 
         /// <summary>
-        /// 
+        /// Обработка убирания мышки с клавиши.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -162,7 +181,7 @@ namespace ContactsApp.View
         }
 
         /// <summary>
-        /// 
+        /// Обработка нажатия на текстбоксе.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -172,7 +191,7 @@ namespace ContactsApp.View
         }
 
         /// <summary>
-        /// 
+        /// Обработка нажатия на текстбоксе.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -182,7 +201,7 @@ namespace ContactsApp.View
         }
 
         /// <summary>
-        /// 
+        /// Обработка нажатия на текстбоксе.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -192,7 +211,7 @@ namespace ContactsApp.View
         }
 
         /// <summary>
-        /// 
+        /// Обработка нажатия на текстбоксе.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -202,7 +221,7 @@ namespace ContactsApp.View
         }
 
         /// <summary>
-        /// 
+        /// Обработка нажатия на текстбоксе.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -212,7 +231,7 @@ namespace ContactsApp.View
         }
 
         /// <summary>
-        /// 
+        /// Закрытие панели дня рождения.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -222,7 +241,7 @@ namespace ContactsApp.View
         }
 
         /// <summary>
-        /// 
+        /// Обработка нажатия f1.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -279,6 +298,37 @@ namespace ContactsApp.View
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = MessageBox.Show("Close the ContactsApp?", "Message", MessageBoxButtons.YesNo) == DialogResult.No;
+        }
+        /// <summary>
+        /// Вызов окна редактирования контакта.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EditContactButton_Click(object sender, EventArgs e)
+        {
+            var selectedIndex = ContactsListBox.SelectedIndex;
+            if (selectedIndex != -1)
+            {
+                var selectedData = _contactsData[selectedIndex];
+                var form = new ContactForm();
+                form.ContactsData = selectedData;
+                form.ShowDialog();
+                if (form.DialogResult == DialogResult.OK)
+                {
+                    var updatedData = form.ContactsData;
+                    ContactsListBox.Items.RemoveAt(selectedIndex);
+                    _contactsData.RemoveAt(selectedIndex);
+                    _contactsData.Insert(selectedIndex, updatedData);
+                    _project.GetAllContacts()[selectedIndex] = updatedData.Contact;
+                    ContactsListBox.Items.Add(updatedData.Contact.FullName);
+                    FullNameTextBox.Text = updatedData.Contact.FullName;
+                    PhoneNumberTextBox.Text = updatedData.Contact.PhoneNumber;
+                    EmailTextBox.Text = updatedData.Contact.Email;
+                    DateOfBirthTextBox.Text = updatedData.Contact.BirthDate.ToString("yyyy/MM/dd");
+                    VKTextBox.Text = updatedData.Contact.VkId;
+                    _contactsData[selectedIndex] = updatedData;
+                }
+            }
         }
     }
 }

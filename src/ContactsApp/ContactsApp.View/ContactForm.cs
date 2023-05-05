@@ -6,8 +6,13 @@
         /// <summary>
         /// Экземпляр  <see cref="Contact">
         /// </summary>
-        private Contact _contact = new Contact("FullName", "Mail@mail.ru", "+79966361510",  new DateTime(1995, 1, 1), "vkid");
+        private Contact _contact = new("Введите полное имя.", "Введите email.", "+70000000000",  new DateTime(1995, 1, 1), "Введите VK Id.");
         
+        /// <summary>
+        /// 
+        /// </summary>
+        private ContactsData _contactsData = new();
+
         /// <summary>
         /// Строка ошибки полного имени.
         /// </summary>
@@ -34,15 +39,37 @@
         private string _vkIdError = "";
 
         /// <summary>
+        /// Свойство ContactsData.
+        /// </summary>
+        public ContactsData ContactsData
+        {
+            get { return _contactsData; }
+            set 
+            { 
+                _contactsData = value;
+                if (_contactsData != null)
+                {
+                    FullNameTextBox.Text = _contactsData.Contact.FullName;
+                    EmailTextBox.Text = _contactsData.Contact.Email;
+                    PhoneNumberTextBox.Text = _contactsData.Contact.PhoneNumber;
+                    DateofBirthTimePicker.Value = _contactsData.Contact.BirthDate.Date;
+                    VKTextBox.Text = _contactsData.Contact.VkId;
+                }
+            }
+        }
+        /// <summary>
         /// Присваивает в TextBox'ы переменные класса Contact.
         /// </summary>
         private void UpdateForm()
         {
-            FullNameTextBox.Text = _contact.FullName;
-            EmailTextBox.Text = _contact.Email;
-            PhoneNumberTextBox.Text = _contact.PhoneNumber;
-            DateofBirthTimePicker.Value = _contact.BirthDate.Date;
-            VKTextBox.Text = _contact.VkId;
+            if (_contactsData.Contact == null)
+            {
+                FullNameTextBox.Text = _contact.FullName;
+                EmailTextBox.Text = _contact.Email;
+                PhoneNumberTextBox.Text = _contact.PhoneNumber;
+                DateofBirthTimePicker.Value = _contact.BirthDate.Date;
+                VKTextBox.Text = _contact.VkId;
+            }
         }
 
         /// <summary>
@@ -107,6 +134,11 @@
             PhotoButton.Image = Properties.Resources.add_photo_32x32_gray;
         }
 
+        private void UpdateContactsData()
+        {
+            _contactsData.Contact = _contact;
+        }
+
         /// <summary>
         /// Изменение заднего фона кнопки.
         /// </summary>
@@ -118,6 +150,8 @@
             if (result)
             {
                 UpdateContact();
+                UpdateContactsData();
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
         }
