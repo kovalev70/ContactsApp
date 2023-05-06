@@ -33,5 +33,26 @@
         {
             return _contacts;
         }
+
+        /// <summary>
+        /// Выдает список контактов, в которых содержится передаваемся строка
+        /// </summary>
+        /// <param name="substring"></param>
+        /// <returns></returns>
+        public List<Contact> SortingContacts()
+        {
+            return _contacts.OrderBy(Contact => Contact.FullName).ToList();
+        }
+
+        /// <summary>
+        /// Выдает список контактов, в которых содержится передаваемся строка
+        /// </summary>
+        /// <param name="substring"></param>
+        /// <returns></returns>
+        public List<Contact> FindByNameAndSurname(string substring)
+        {
+            var sorted = SortingContacts();
+            return sorted.Where(Сontact => Сontact.FullName.Contains(substring)).ToList();
+        }
     }
 }

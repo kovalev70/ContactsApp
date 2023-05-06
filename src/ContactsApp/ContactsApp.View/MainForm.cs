@@ -14,13 +14,46 @@ namespace ContactsApp.View
         private List<ContactsData> _contactsData = new List<ContactsData>();
 
         /// <summary>
+        /// Вспомогательный список для поиска
+        /// </summary>
+        private List<Contact> _contacts;
+
+        /// <summary>
         /// Конструктор формы.
         /// </summary>
         public MainForm()
         {
             InitializeComponent();
+            UpdateListBox();
             FillListBoxByTestData();
             UpdateListBox();
+        }
+
+        /// <summary>
+        /// Выполняет сортировку контактов по алфавиту
+        /// </summary>
+        private void ContactSort()
+        {
+            if (FindTextBox.Text.Length == 0)
+            {
+                _contacts = _project.SortingContacts();
+            }
+            else if (FindTextBox.Text.Length != 0)
+            {
+                _contacts = _project.FindByNameAndSurname(FindTextBox.Text);
+            }
+        }
+
+        /// <summary>
+        /// Очищает поля textBox
+        /// </summary>
+        private void ClearRightPanel()
+        {
+            FullNameTextBox.Clear();
+            DateOfBirthTextBox.Clear();
+            PhoneNumberTextBox.Clear();
+            EmailTextBox.Clear();
+            VKTextBox.Clear();
         }
 
         /// <summary>
@@ -38,7 +71,7 @@ namespace ContactsApp.View
                 };
                 _contactsData.Add(data);
                 _project.AddContact(testContact);
-                ContactsListBox.Items.Add(testContact);
+                ContactsListBox.Items.Add(_contacts);
 
             }
         }
@@ -48,8 +81,9 @@ namespace ContactsApp.View
         /// </summary>
         private void UpdateListBox()
         {
+            ContactSort();
             ContactsListBox.Items.Clear();
-            foreach (var contact in _project.GetAllContacts())
+            foreach (var contact in _contacts)
             {
                 ContactsListBox.Items.Add(contact.FullName);
             }
@@ -61,7 +95,7 @@ namespace ContactsApp.View
         /// <param name="index"></param>
         private void RemoveContact(int index)
         {
-            _project.RemoveContact(_project.GetAllContacts()[index]);
+            _project.RemoveContact(_contacts[index]);
         }
 
         /// <summary>
@@ -99,6 +133,7 @@ namespace ContactsApp.View
                 EmailTextBox.Text = updatedData.Contact.Email;
                 DateOfBirthTextBox.Text = updatedData.Contact.BirthDate.ToString("yyyy/MM/dd");
                 VKTextBox.Text = updatedData.Contact.VkId;
+                UpdateListBox();
             }
         }
 
@@ -115,7 +150,7 @@ namespace ContactsApp.View
         }
 
         /// <summary>
-        /// Обработка наведения мышки с клавиши.
+        /// Обработка наведения мышки на клавишу.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -137,7 +172,7 @@ namespace ContactsApp.View
         }
 
         /// <summary>
-        /// Обработка наведения мышки с клавиши.
+        /// Обработка наведения мышки на клавишу.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -159,7 +194,7 @@ namespace ContactsApp.View
         }
 
         /// <summary>
-        /// Обработка наведения мышки с клавиши.
+        /// Обработка наведения мышки на клавишу.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -271,6 +306,7 @@ namespace ContactsApp.View
                 if (result == DialogResult.OK)
                 {
                     RemoveContact(ContactsListBox.SelectedIndex);
+                    ClearRightPanel();
                     UpdateListBox();
                 }
             }
@@ -327,6 +363,7 @@ namespace ContactsApp.View
                     DateOfBirthTextBox.Text = updatedData.Contact.BirthDate.ToString("yyyy/MM/dd");
                     VKTextBox.Text = updatedData.Contact.VkId;
                     _contactsData[selectedIndex] = updatedData;
+                    UpdateListBox();
                 }
             }
         }
