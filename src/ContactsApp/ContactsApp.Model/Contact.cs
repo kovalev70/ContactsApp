@@ -5,7 +5,7 @@
     /// <summary>
     /// Описывает контакт.
     /// </summary>
-    public class Contact
+    public class Contact : ICloneable
     {
         /// <summary>
         /// Полное имя контакта.
@@ -48,7 +48,14 @@
             BirthDate = birthDate;
             VkId = vkId;
         }
-
+        public Contact()
+        {
+            FullName = "Введите полное имя.";
+            Email = "Введите email.";
+            VkId = "Введите VK Id.";
+            BirthDate = DateTime.Now;
+            PhoneNumber = "+70000000000";
+        }
         /// <summary>
         /// Возвращает или задает полное имя контакта.
         /// </summary>
@@ -151,6 +158,11 @@
         {
             string pattern = @"^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$";
             return Regex.IsMatch(phoneNumber, pattern);
+        }
+
+        public object Clone()
+        {
+            return new Contact(FullName, Email, PhoneNumber, BirthDate, VkId);
         }
     }
 }

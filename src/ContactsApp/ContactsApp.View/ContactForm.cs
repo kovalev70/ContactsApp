@@ -6,12 +6,12 @@
         /// <summary>
         /// Экземпляр  <see cref="Contact">
         /// </summary>
-        private Contact _contact = new("Введите полное имя.", "Введите email.", "+70000000000",  new DateTime(1995, 1, 1), "Введите VK Id.");
-        
+        private Contact _contact = new Contact();
+
         /// <summary>
-        /// 
+        /// Поле содержащее бэкап копию контакта
         /// </summary>
-        private ContactsData _contactsData = new();
+        private Contact _contactClone = new Contact();
 
         /// <summary>
         /// Строка ошибки полного имени.
@@ -38,23 +38,20 @@
         /// </summary>
         private string _vkIdError = "";
 
+        private readonly Color _rightValueColor = Color.White;
+        private readonly Color _wrongValueColor = Color.LightPink;
+
         /// <summary>
         /// Свойство ContactsData.
         /// </summary>
-        public ContactsData ContactsData
+        public Contact Contact
         {
-            get { return _contactsData; }
+            get { return _contact; }
             set 
-            { 
-                _contactsData = value;
-                if (_contactsData != null)
-                {
-                    FullNameTextBox.Text = _contactsData.Contact.FullName;
-                    EmailTextBox.Text = _contactsData.Contact.Email;
-                    PhoneNumberTextBox.Text = _contactsData.Contact.PhoneNumber;
-                    DateofBirthTimePicker.Value = _contactsData.Contact.BirthDate.Date;
-                    VKTextBox.Text = _contactsData.Contact.VkId;
-                }
+            {
+                _contact = value;
+                UpdateForm();
+                _contactClone = (Contact)_contact.Clone();
             }
         }
         /// <summary>
@@ -62,14 +59,11 @@
         /// </summary>
         private void UpdateForm()
         {
-            if (_contactsData.Contact == null)
-            {
-                FullNameTextBox.Text = _contact.FullName;
-                EmailTextBox.Text = _contact.Email;
-                PhoneNumberTextBox.Text = _contact.PhoneNumber;
-                DateofBirthTimePicker.Value = _contact.BirthDate.Date;
-                VKTextBox.Text = _contact.VkId;
-            }
+            FullNameTextBox.Text = _contact.FullName;
+            EmailTextBox.Text = _contact.Email;
+            PhoneNumberTextBox.Text = _contact.PhoneNumber;
+            DateofBirthTimePicker.Value = _contact.BirthDate.Date;
+            VKTextBox.Text = _contact.VkId;
         }
 
         /// <summary>
@@ -77,12 +71,13 @@
         /// </summary>
         private void UpdateContact()
         {
-            var contact = _contact;
+            var contact = _contactClone;
             contact.FullName = FullNameTextBox.Text;
             contact.Email = EmailTextBox.Text;
             contact.PhoneNumber = PhoneNumberTextBox.Text;
             contact.BirthDate = DateofBirthTimePicker.Value;
             contact.VkId = VKTextBox.Text;
+            _contact = contact;
         }
 
         /// <summary>
@@ -134,11 +129,6 @@
             PhotoButton.Image = Properties.Resources.add_photo_32x32_gray;
         }
 
-        private void UpdateContactsData()
-        {
-            _contactsData.Contact = _contact;
-        }
-
         /// <summary>
         /// Изменение заднего фона кнопки.
         /// </summary>
@@ -150,7 +140,6 @@
             if (result)
             {
                 UpdateContact();
-                UpdateContactsData();
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
@@ -175,13 +164,13 @@
         {
             try 
             {
-                _contact.FullName = FullNameTextBox.Text;
+                _contactClone.FullName = FullNameTextBox.Text;
                 _fullNameError = "";
-                FullNameTextBox.BackColor = Color.White;
+                FullNameTextBox.BackColor = _rightValueColor;
             }
             catch (ArgumentException exception)
             {
-                FullNameTextBox.BackColor = Color.LightPink;
+                FullNameTextBox.BackColor = _wrongValueColor;
                 _fullNameError = exception.Message;
             }
         }
@@ -195,13 +184,13 @@
         {
             try
             {
-                _contact.Email = EmailTextBox.Text;
+                _contactClone.Email = EmailTextBox.Text;
                 _emailError = "";
-                EmailTextBox.BackColor = Color.White;
+                EmailTextBox.BackColor = _rightValueColor;
             }
             catch (ArgumentException exception)
             {
-                EmailTextBox.BackColor = Color.LightPink;
+                EmailTextBox.BackColor = _wrongValueColor;
                 _emailError = exception.Message;
             }
         }
@@ -215,13 +204,13 @@
         {
             try
             {
-                _contact.PhoneNumber = PhoneNumberTextBox.Text;
+                _contactClone.PhoneNumber = PhoneNumberTextBox.Text;
                 _phoneNumberError = "";
-                PhoneNumberTextBox.BackColor = Color.White;
+                PhoneNumberTextBox.BackColor = _rightValueColor;
             }
             catch (ArgumentException exception)
             {
-                PhoneNumberTextBox.BackColor = Color.LightPink;
+                PhoneNumberTextBox.BackColor = _wrongValueColor;
                 _phoneNumberError = exception.Message;
             }
         }
@@ -235,13 +224,13 @@
         {
             try
             {
-                _contact.BirthDate = DateofBirthTimePicker.Value;
+                _contactClone.BirthDate = DateofBirthTimePicker.Value;
                 _dateOfBirthError = "";
-                DateofBirthTimePicker.BackColor = Color.White;
+                DateofBirthTimePicker.BackColor = _rightValueColor;
             }
             catch (ArgumentException exception)
             {
-                DateofBirthTimePicker.BackColor = Color.LightPink;
+                DateofBirthTimePicker.BackColor = _wrongValueColor;
                 _dateOfBirthError = exception.Message;
             }
         }
@@ -255,13 +244,13 @@
         {
             try
             {
-                _contact.VkId = VKTextBox.Text;
+                _contactClone.VkId = VKTextBox.Text;
                 _vkIdError = "";
-                VKTextBox.BackColor = Color.White;
+                VKTextBox.BackColor = _rightValueColor;
             }
             catch (ArgumentException exception)
             {
-                VKTextBox.BackColor = Color.LightPink;
+                VKTextBox.BackColor = _wrongValueColor;
                 _vkIdError = exception.Message;
             }
         }
