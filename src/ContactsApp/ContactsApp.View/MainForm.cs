@@ -60,7 +60,7 @@ namespace ContactsApp.View
             for (int i = 0; i < dataCount; i++)
             {
                 Contact testContact = TestData.AddContact();
-                _project.AddContact(testContact);
+                _project.Contacts.Add(testContact);
                 ContactsListBox.Items.Add(_project);
 
             }
@@ -73,15 +73,16 @@ namespace ContactsApp.View
         private void RemoveContactButton_Click(object sender, EventArgs e)
         {
             var index = ContactsListBox.SelectedIndex;
-            var contact = _project.GetAllContacts()[index];
             if (index == -1) return;
+            var contact = _project.Contacts[index];
             DialogResult result = MessageBox.Show(
                 "Do you really want to remove " + contact.FullName + "?",
                 "Message",
                 MessageBoxButtons.OKCancel);
             if (result == DialogResult.OK)
             {
-                RemoveContact(index);
+                var selectedContact = _contacts[index];
+                _project.Contacts.Remove(selectedContact);
                 ClearRightPanel();
                 UpdateListBox();
             }
@@ -98,7 +99,7 @@ namespace ContactsApp.View
             {
                 ClearSelectedContact();
             }
-            else UpdateSelectedContact(ContactsListBox.SelectedIndex);
+            else ChangeTextBox(_contacts[ContactsListBox.SelectedIndex]);
         }
 
         /// <summary>
@@ -112,6 +113,20 @@ namespace ContactsApp.View
                 "Message", 
                 MessageBoxButtons.YesNo) == DialogResult.No;
         }
+
+        /// <summary>
+        /// Обновляет поля TextBox на новые значения
+        /// </summary>
+        /// <param name="contact"></param>
+        private void ChangeTextBox(Contact contact)
+        {
+            FullNameTextBox.Text = contact.FullName;
+            PhoneNumberTextBox.Text = contact.PhoneNumber;
+            EmailTextBox.Text = contact.Email;
+            DateOfBirthTextBox.Text = contact.BirthDate.ToString("yyyy/MM/dd");
+            VKTextBox.Text = contact.VkId;
+        }
+
         /// <summary>
         /// Вызов окна редактирования контакта.
         /// </summary>
@@ -120,25 +135,19 @@ namespace ContactsApp.View
         private void EditContactButton_Click(object sender, EventArgs e)
         {
             var selectedIndex = ContactsListBox.SelectedIndex;
-            if (selectedIndex != -1)
+            if (selectedIndex == -1) return;
+            var selectedContact = _contacts[selectedIndex];
+            var form = new ContactForm();
+            form.Contact = selectedContact;
+            form.ShowDialog();
+            if (form.DialogResult == DialogResult.OK)
             {
-                var selectedData = _project.GetAllContacts()[selectedIndex];
-                var form = new ContactForm();
-                form.Contact = selectedData;
-                form.ShowDialog();
-                if (form.DialogResult == DialogResult.OK)
-                {
-                    var updatedData = form.Contact;
-                    ContactsListBox.Items.RemoveAt(selectedIndex);
-                    _project.GetAllContacts()[selectedIndex] = updatedData;
-                    ContactsListBox.Items.Add(updatedData.FullName);
-                    FullNameTextBox.Text = updatedData.FullName;
-                    PhoneNumberTextBox.Text = updatedData.PhoneNumber;
-                    EmailTextBox.Text = updatedData.Email;
-                    DateOfBirthTextBox.Text = updatedData.BirthDate.ToString("yyyy/MM/dd");
-                    VKTextBox.Text = updatedData.VkId;
-                    UpdateListBox();
-                }
+                var editContact = form.Contact;
+                _project.Contacts.Remove(selectedContact);
+                _project.Contacts.Add(editContact);
+                ChangeTextBox(editContact);
+                UpdateListBox();
+                ContactsListBox.SelectedIndex = _contacts.IndexOf(editContact);
             }
         }
 
@@ -161,29 +170,6 @@ namespace ContactsApp.View
         }
 
         /// <summary>
-        /// Удаление контакта
-        /// </summary>
-        /// <param name="index"></param>
-        private void RemoveContact(int index)
-        {
-            _project.RemoveContact(_contacts[index]);
-        }
-
-        /// <summary>
-        /// Обновление выбранного контакта.
-        /// </summary>
-        /// <param name="index"></param>
-        private void UpdateSelectedContact(int index)
-        {
-            Contact AllContacts = _contacts[index];
-            FullNameTextBox.Text = AllContacts.FullName;
-            EmailTextBox.Text = AllContacts.Email;
-            PhoneNumberTextBox.Text = AllContacts.PhoneNumber;
-            DateOfBirthTextBox.Text = AllContacts.BirthDate.Date.ToString("yyyy/MM/dd");
-            VKTextBox.Text = AllContacts.VkId;
-        }
-
-        /// <summary>
         /// Вызов формы ContactForm.
         /// </summary>
         /// <param name="sender"></param>
@@ -194,16 +180,11 @@ namespace ContactsApp.View
             form.ShowDialog();
             if (form.DialogResult == DialogResult.OK)
             {
-                var updatedData = form.Contact;
-                _project.AddContact(updatedData);
-                ContactsListBox.Items.Add(updatedData.FullName);
-                var selectedIndex = ContactsListBox.SelectedIndex;
-                FullNameTextBox.Text = updatedData.FullName;
-                PhoneNumberTextBox.Text = updatedData.PhoneNumber;
-                EmailTextBox.Text = updatedData.Email;
-                DateOfBirthTextBox.Text = updatedData.BirthDate.ToString("yyyy/MM/dd");
-                VKTextBox.Text = updatedData.VkId;
+                var newContact = form.Contact;
+                _project.Contacts.Add(newContact);
                 UpdateListBox();
+                ChangeTextBox(newContact);
+                ContactsListBox.SelectedIndex = _contacts.IndexOf(newContact);
             }
         }
 

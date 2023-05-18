@@ -1,6 +1,8 @@
 ﻿namespace ContactsApp.View
 {
     using ContactsApp.Model;
+    using System.Collections.Generic;
+
     public partial class ContactForm : Form
     {
         /// <summary>
@@ -9,36 +11,31 @@
         private Contact _contact = new Contact();
 
         /// <summary>
-        /// Поле содержащее бэкап копию контакта
+        /// Поле содержащее бэкап копию контакта.
         /// </summary>
         private Contact _contactClone = new Contact();
 
         /// <summary>
-        /// Строка ошибки полного имени.
+        /// Словарь с ошибками.
         /// </summary>
-        private string _fullNameError = "";
+        private Dictionary<string, string> _errors = new Dictionary<string, string>()
+        {
+            {"fullNameError", "" },
+            {"emailError", "" },
+            {"phoneNumberError", "" },
+            {"dateOfBirthError", "" },
+            {"vkIdError", "" }
+        };
+
 
         /// <summary>
-        /// Строка ошибки email.
+        /// Цвет верно введенного поля.
         /// </summary>
-        private string _emailError = "";
-
-        /// <summary>
-        /// Строка ошибки номера телефона.
-        /// </summary>
-        private string _phoneNumberError = "";
-
-        /// <summary>
-        /// Строка ошибки дня рождения.
-        /// </summary>
-        private string _dateOfBirthError = "";
-
-        /// <summary>
-        /// Строка ошибки Id Вконтакте.
-        /// </summary>
-        private string _vkIdError = "";
-
         private readonly Color _rightValueColor = Color.White;
+
+        /// <summary>
+        /// Цвет неверно введенного поля.
+        /// </summary>
         private readonly Color _wrongValueColor = Color.LightPink;
 
         /// <summary>
@@ -86,14 +83,16 @@
         /// <returns></returns>
         private bool CheckFormOnErrors()
         {
-            if (_fullNameError != "" || _emailError != "" || _phoneNumberError != "" || _dateOfBirthError != "" || _vkIdError !="")
+            string errorMessage = "";
+            foreach (var error in _errors)
             {
-                string errorMessage = "";
-                if (_fullNameError != "") errorMessage = errorMessage + "- " + _fullNameError + "\n";
-                if (_emailError != "") errorMessage = errorMessage + "- " + _emailError + "\n";
-                if (_phoneNumberError != "") errorMessage = errorMessage + "- " + _phoneNumberError + "\n";
-                if (_dateOfBirthError != "") errorMessage = errorMessage + "- " + _dateOfBirthError + "\n";
-                if (_vkIdError != "") errorMessage =errorMessage + "- " + _vkIdError + "\n";
+                if (error.Value != "")
+                {
+                    errorMessage = errorMessage + "- " + error.Value + "\n";
+                }
+            }
+            if (errorMessage != "")
+            {
                 MessageBox.Show(errorMessage);
                 return false;
             }
@@ -165,13 +164,13 @@
             try 
             {
                 _contactClone.FullName = FullNameTextBox.Text;
-                _fullNameError = "";
+                _errors["fullNameError"] = "";
                 FullNameTextBox.BackColor = _rightValueColor;
             }
             catch (ArgumentException exception)
             {
                 FullNameTextBox.BackColor = _wrongValueColor;
-                _fullNameError = exception.Message;
+                _errors["fullNameError"] = exception.Message;
             }
         }
 
@@ -185,13 +184,13 @@
             try
             {
                 _contactClone.Email = EmailTextBox.Text;
-                _emailError = "";
+                _errors["emailError"] = "";
                 EmailTextBox.BackColor = _rightValueColor;
             }
             catch (ArgumentException exception)
             {
                 EmailTextBox.BackColor = _wrongValueColor;
-                _emailError = exception.Message;
+                _errors["emailError"] = exception.Message;
             }
         }
 
@@ -205,13 +204,13 @@
             try
             {
                 _contactClone.PhoneNumber = PhoneNumberTextBox.Text;
-                _phoneNumberError = "";
+                _errors["phoneNumberError"] = "";
                 PhoneNumberTextBox.BackColor = _rightValueColor;
             }
             catch (ArgumentException exception)
             {
                 PhoneNumberTextBox.BackColor = _wrongValueColor;
-                _phoneNumberError = exception.Message;
+                _errors["phoneNumberError"] = exception.Message;
             }
         }
 
@@ -225,13 +224,13 @@
             try
             {
                 _contactClone.BirthDate = DateofBirthTimePicker.Value;
-                _dateOfBirthError = "";
+                _errors["dateOfBirthError"] = "";
                 DateofBirthTimePicker.BackColor = _rightValueColor;
             }
             catch (ArgumentException exception)
             {
                 DateofBirthTimePicker.BackColor = _wrongValueColor;
-                _dateOfBirthError = exception.Message;
+                _errors["dateOfBirthError"] = exception.Message;
             }
         }
 
@@ -245,13 +244,13 @@
             try
             {
                 _contactClone.VkId = VKTextBox.Text;
-                _vkIdError = "";
+                _errors["vkIdError"] = "";
                 VKTextBox.BackColor = _rightValueColor;
             }
             catch (ArgumentException exception)
             {
                 VKTextBox.BackColor = _wrongValueColor;
-                _vkIdError = exception.Message;
+                _errors["vkIdErrorError"] = exception.Message;
             }
         }
     }
