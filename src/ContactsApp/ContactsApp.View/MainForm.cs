@@ -19,13 +19,20 @@ namespace ContactsApp.View
         public MainForm()
         {
             InitializeComponent();
-            FillListBoxByTestData();
+            try
+            {
+                _project = ProjectSerializer.LoadFromFile(ProjectSerializer.Filename);
+            }
+            catch (AccessViolationException exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OK);
+                _project = new Project();
+            }
             var birthdayContacts = _project.FindBirthdayContacts(DateTime.Now);
             if (birthdayContacts.Count != 0)
             {
                 BirthdaySurnamesLabel.Text += string.Join(", ", birthdayContacts.
                     Select(contact => contact.FullName));
-                BirthdaySurnamesLabel.Text += birthdayContacts[birthdayContacts.Count - 1].FullName;
             }
             else
             {
@@ -93,6 +100,7 @@ namespace ContactsApp.View
             {
                 var selectedContact = _contacts[index];
                 _project.Contacts.Remove(selectedContact);
+                ProjectSerializer.SaveToFile(_project, ProjectSerializer.Filename);
                 ClearRightPanel();
                 UpdateListBox();
             }
@@ -119,6 +127,7 @@ namespace ContactsApp.View
         /// <param name="e"></param>
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            ProjectSerializer.SaveToFile(_project, ProjectSerializer.Filename);
             e.Cancel = MessageBox.Show("Close the ContactsApp?", 
                 "Message", 
                 MessageBoxButtons.YesNo) == DialogResult.No;
@@ -155,6 +164,7 @@ namespace ContactsApp.View
                 var editContact = form.Contact;
                 _project.Contacts.Remove(selectedContact);
                 _project.Contacts.Add(editContact);
+                ProjectSerializer.SaveToFile(_project, ProjectSerializer.Filename);
                 ChangeTextBox(editContact);
                 UpdateListBox();
                 ContactsListBox.SelectedIndex = _contacts.IndexOf(editContact);
@@ -192,6 +202,7 @@ namespace ContactsApp.View
             {
                 var newContact = form.Contact;
                 _project.Contacts.Add(newContact);
+                ProjectSerializer.SaveToFile(_project, ProjectSerializer.Filename);
                 UpdateListBox();
                 ChangeTextBox(newContact);
                 ContactsListBox.SelectedIndex = _contacts.IndexOf(newContact);
