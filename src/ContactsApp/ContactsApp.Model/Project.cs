@@ -22,15 +22,44 @@
         }
 
         /// <summary>
-        /// Выдает список контактов, в которых содержится передаваемся строка
+        /// Выполняет поиск именинников на указанную дату
         /// </summary>
-        /// <param name="substring"></param>
+        /// <param name="date"></param>
         /// <returns></returns>
-        public List<Contact> FindByNameAndSurname(string substring)
+        public List<Contact> FindBirthdayContacts(DateTime date)
         {
+            return Contacts.Where(contact => contact.BirthDate.Day == date.Day
+            && contact.BirthDate.Month == date.Month).ToList();
+        }
+
+
+        /// <summary>
+        /// Выдает список контактов, в которых содержится передающаяся строка
+        /// </summary>
+        /// <param name="phoneNumber"></param>
+        /// <returns></returns>
+        public List<Contact> FindContacts(string str)
+        {
+            DateTime date;
+            try
+            {
+                date = DateTime.Parse(str);
+            }
+            catch (FormatException)
+            {
+                date = default;
+            }
+
             var sorted = SortingContacts();
-            return sorted.Where(contact => contact.FullName.Contains(substring)
-            || contact.FullName.Contains(substring)).ToList();
+            return sorted.Where(contact => 
+            contact.PhoneNumber.Contains(str) 
+            || contact.FullName.Contains(str)
+            || contact.Email.Contains(str)
+            || contact.VkId.Contains(str)
+            || contact.FullName.Contains(str)
+            || (contact.BirthDate.Day == date.Day 
+            && contact.BirthDate.Month == date.Month 
+            && date.Year != DateTime.MinValue.Year)).ToList();
         }
     }
 }

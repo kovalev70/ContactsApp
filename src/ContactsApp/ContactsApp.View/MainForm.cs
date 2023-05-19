@@ -19,8 +19,18 @@ namespace ContactsApp.View
         public MainForm()
         {
             InitializeComponent();
-            UpdateListBox();
             FillListBoxByTestData();
+            var birthdayContacts = _project.FindBirthdayContacts(DateTime.Now);
+            if (birthdayContacts.Count != 0)
+            {
+                BirthdaySurnamesLabel.Text += string.Join(", ", birthdayContacts.
+                    Select(contact => contact.FullName));
+                BirthdaySurnamesLabel.Text += birthdayContacts[birthdayContacts.Count - 1].FullName;
+            }
+            else
+            {
+                BirthdayPanel.Visible = false;
+            }
             UpdateListBox();
         }
 
@@ -35,7 +45,7 @@ namespace ContactsApp.View
             }
             else if (FindTextBox.Text.Length != 0)
             {
-                _contacts = _project.FindByNameAndSurname(FindTextBox.Text);
+                _contacts = _project.FindContacts(FindTextBox.Text);
             }
         }
 
