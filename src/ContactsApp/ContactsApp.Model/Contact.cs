@@ -160,6 +160,10 @@
             return Regex.IsMatch(phoneNumber, pattern);
         }
 
+        /// <summary>
+        /// Создает клон объекта <see cref="Contact"/>
+        /// </summary>
+        /// <returns></returns>
         public object Clone()
         {
             return new Contact(FullName, Email, PhoneNumber, BirthDate, VkId);
