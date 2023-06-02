@@ -67,21 +67,6 @@ namespace ContactsApp.View
             EmailTextBox.Clear();
             VKTextBox.Clear();
         }
-
-        /// <summary>
-        /// Заполняет ListBox тестовыми контактами.
-        /// </summary>
-        /// <param name="dataCount"></param>
-        private void FillListBoxByTestData(int dataCount = 3)
-        {
-            for (int i = 0; i < dataCount; i++)
-            {
-                Contact testContact = TestData.AddContact();
-                _project.Contacts.Add(testContact);
-                ContactsListBox.Items.Add(_project);
-
-            }
-        }
         /// <summary>
         /// Обработка нажатия кнопки RemoveContactButton.
         /// </summary>

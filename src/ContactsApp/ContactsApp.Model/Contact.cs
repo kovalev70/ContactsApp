@@ -128,7 +128,7 @@
             get { return _vkId; }
             set
             {
-                if (value.Length > 50)
+                if (value.Length > 50 )
                 {
                     throw new ArgumentException("VK ID must be no more than 50 characters long.");
                 }
@@ -141,7 +141,7 @@
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        private string ToUpperFirst(string s)
+        public static string ToUpperFirst(string s)
         {
             if (string.IsNullOrEmpty(s))
             {

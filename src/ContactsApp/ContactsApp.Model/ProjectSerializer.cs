@@ -14,7 +14,7 @@ namespace ContactsApp.Model
         /// </summary>
         public static readonly string Filename =
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
-            + @"\KovalevINC\ContactsApp\ContactsApp.json";
+            + @"\Kovalev\ContactsApp\ContactsApp.json";
 
         /// <summary>
         /// Реализует сохранение файла
