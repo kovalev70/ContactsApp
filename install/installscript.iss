@@ -32,11 +32,9 @@ Name: "{commondesktop}\ContactsApp"; Filename: "{app}\\ContactsApp.View.exe"; Ic
 
 [Files]
 Source: "{#SourcePath}\\{#Name}.ico"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs;
-Source: "{#SourcePath}\\..\\{#SourseFolder}ContactsApp.View.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#SourcePath}\\..\\{#SourseFolder}\ContactsApp.Model.dll"  ; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#SourcePath}\\..\\{#SourseFolder}\ContactsApp.View.dll"  ; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#SourcePath}\\..\\{#SourseFolder}\Newtonsoft.Json.dll"  ; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#SourcePath}\\..\\{#SourseFolder}\ContactsApp.View.runtimeconfig.json"  ; DestDir: "{app}"; Flags: ignoreversion 
+Source: "{#SourcePath}\\..\\{#SourseFolder}\*.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#SourcePath}\\..\\{#SourseFolder}\*.dll"  ; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#SourcePath}\\..\\{#SourseFolder}\*.runtimeconfig.json"  ; DestDir: "{app}"; Flags: ignoreversion 
 
 [UninstallDelete]
 Type: filesandordirs; Name: {app};
