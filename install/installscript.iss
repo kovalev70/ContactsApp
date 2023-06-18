@@ -2,7 +2,7 @@
 #define Version = "1.0.0"       
 #define Publisher = "Kovalev"
 #define URL = "https://github.com/kovalev70"
-#define SourseFolder = "src\ContactsApp\ContactsApp.View\bin\Debug\net6.0-windows\"
+#define SourseFolder = "src\ContactsApp\ContactsApp.View\bin\Release\net6.0-windows\"
 
 [Setup]
 AppName={#Name}

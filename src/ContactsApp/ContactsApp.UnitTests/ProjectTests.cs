@@ -36,20 +36,23 @@
         public void SortingContacts_CorrectValue_ReturnOrderedList()
         {
             //setup
+            var actualProject = GetCorrectProject();
             var expected = new List<Contact>()
             {
-                new Contact("A", "A","72300000000",new DateTime(2011, 10, 1), "A"),
-                new Contact("B", "B","71800000000",new DateTime(2000, 9, 5), "B"),
-                new Contact("C", "C","70000000000",new DateTime(2001, 11, 10), "C")
+                actualProject.Contacts[1],
+                actualProject.Contacts[2],
+                actualProject.Contacts[0]
             };
-            var actualProject = GetCorrectProject();
 
             //act
             var actual = actualProject.SortingContacts();
 
             //assert
-            Assert.AreEqual(expected.ToString(),
-                actual.ToString(), "Dotes not sorted");
+            for (int i = 0; i < expected.Count; i++)
+            {
+                Assert.AreEqual(expected[i].FullName, 
+                    actual[i].FullName, "Dotes not sorted");
+            }
         }
 
         [Test(Description = "Test Sort without values")]
@@ -71,18 +74,18 @@
         public void FindContacts_CorrectValueSubstring_ReturnCorrectList()
         {
             //setup
+            var project = GetCorrectProject();
             var expected = new List<Contact>()
             {
-                new Contact("C", "C","70000000000",new DateTime(2001, 11, 10), "C")
+                project.Contacts[0],
             };
-            var project = GetCorrectProject();
 
             //act
             var actual = project.FindContacts("C");
 
             //assert
-            Assert.AreEqual(expected.ToString(),
-                actual.ToString(), "Not found");
+            Assert.AreEqual(expected[0].FullName,
+                actual[0].FullName, "Not found");
         }
 
         [Test(Description = "Test Sort without values with substring")]
@@ -124,15 +127,15 @@
             var project = GetCorrectProject();
             var expected = new List<Contact>
             {
-                new Contact("C", "C","70000000000",new DateTime(2001, 11, 10), "C")
+                project.Contacts[0]
             };
 
             //act
             var actual = project.FindBirthdayContacts(new DateTime(2001, 11, 10));
 
             //assert
-            Assert.AreEqual(expected.ToString(),
-                actual.ToString(), "Fail to find people's birthday");
+            Assert.AreEqual(expected[0].FullName,
+                actual[0].FullName, "Fail to find people's birthday");
         }
     }
 }

@@ -160,6 +160,7 @@ namespace ContactsApp.View
         {
             ContactSort();
             UpdateListBox();
+            ClearRightPanel();
         }
         /// <summary>
         /// Обновляет ListBox.
